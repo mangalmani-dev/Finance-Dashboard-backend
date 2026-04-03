@@ -1,6 +1,7 @@
 import prisma from "../config/prisma.js";
 import ApiError from "../utils/ApiError.js";
 import ApiResponse from "../utils/ApiResponse.js";
+
 export const createRecord = async (req, res, next) => {
   try {
     const {
@@ -35,6 +36,46 @@ export const createRecord = async (req, res, next) => {
     );
   }
 };
+
+// create a multiple records at once
+
+export const createMultipleRecords = async (req, res, next) => {
+  try {
+    const records = req.body;
+
+    if (!Array.isArray(records) || records.length === 0) {
+      return next(
+        new ApiError(400, "Please send an array of records")
+      );
+    }
+
+    const formattedRecords = records.map((record) => ({
+      amount: record.amount,
+      type: record.type.toUpperCase(),
+      category: record.category,
+      date: new Date(record.date),
+      notes: record.notes,
+      createdBy: req.user.id
+    }));
+
+    const createdRecords = await prisma.financialRecord.createMany({
+      data: formattedRecords
+    });
+
+    return res.status(201).json(
+      new ApiResponse(
+        201,
+        "Multiple records created successfully",
+        createdRecords
+      )
+    );
+  } catch (error) {
+    return next(
+      new ApiError(500, error.message)
+    );
+  }
+};
+
 
 
 export const getAllRecords = async (req, res, next) => {
@@ -98,6 +139,7 @@ export const getRecordById = async (req, res, next) => {
 
     const record = await prisma.financialRecord.findUnique({
       where: {
+         isDeleted:false,
         id: Number(id)
       }
     });
@@ -121,6 +163,8 @@ export const getRecordById = async (req, res, next) => {
     );
   }
 };
+
+
 
 export const updateRecord = async (req, res, next) => {
   try {

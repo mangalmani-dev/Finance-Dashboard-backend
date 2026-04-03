@@ -10,25 +10,10 @@ import authorizeRoles from "../middlewares/role.middleware.js";
 
 const router = express.Router();
 
-router.get(
-  "/summary",
-  authenticateUser,
-  authorizeRoles("analyst", "admin"),
-  getDashboardSummary
-);
+router.get("/summary",authenticateUser,authorizeRoles("analyst", "admin"),getDashboardSummary);
 
-router.get(
-  "/category-summary",
-  authenticateUser,
-  authorizeRoles("analyst", "admin"),
-  getCategorySummary
-);
+router.get("/category-summary",authenticateUser,authorizeRoles("analyst", "admin"),getCategorySummary);
 
-router.get(
-  "/recent-activity",
-  authenticateUser,
-  authorizeRoles("viewer", "analyst", "admin"),
-  getRecentActivity
-);
+router.get("/recent-activity",authenticateUser,authorizeRoles("viewer", "analyst", "admin"),getRecentActivity);
 
 export default router;
