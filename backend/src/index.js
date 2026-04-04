@@ -7,6 +7,7 @@ import recordRoutes from "./routes/record.routes.js"
 import dashboardRoutes from "./routes/dashboard.routes.js"  
 import adminRoutes from "./routes/admin.routes.js";
 import healthRoutes from "./routes/health.routes.js";
+import ApiResponse from "./utils/ApiResponse.js";
 
 dotenv.config({
     path: "./.env"
@@ -22,12 +23,13 @@ app.use(cookieParser());
 
 // for check
 
-
-
-
+app.get("/", (req, res) => {
+  return res.status(200).json(
+    new ApiResponse(200, "Finance Dashboard Backend API is live")
+  );
+});
 
 // api endpoints
-
 app.use("/api/v1", healthRoutes);
 app.use("/api/v1/auth",authRoutes)
 app.use("/api/v1/record",recordRoutes)
