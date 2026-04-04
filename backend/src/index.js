@@ -28,7 +28,7 @@ app.use(cookieParser());
 
 // api endpoints
 
-app.use("/", healthRoutes);
+app.use("/api/v1", healthRoutes);
 app.use("/api/v1/auth",authRoutes)
 app.use("/api/v1/record",recordRoutes)
 app.use("/api/v1/dashboard",dashboardRoutes)
