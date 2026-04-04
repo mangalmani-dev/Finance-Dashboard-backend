@@ -77,15 +77,22 @@ export const createMultipleRecords = async (req, res, next) => {
 };
 
 
-
 export const getAllRecords = async (req, res, next) => {
   try {
     const {
       type,
       category,
       startDate,
-      endDate
+      endDate,
+      page = 1,
+      limit = 10,
+      sortBy = "createdAt",
+      order = "desc"
     } = req.query;
+
+    const pageNumber = Number(page);
+    const limitNumber = Number(limit);
+    const skip = (pageNumber - 1) * limitNumber;
 
     const filters = {
       isDeleted: false
@@ -111,11 +118,33 @@ export const getAllRecords = async (req, res, next) => {
       }
     }
 
+    const allowedSortFields = [
+      "amount",
+      "date",
+      "createdAt",
+      "category",
+      "type"
+    ];
+
+    const finalSortBy = allowedSortFields.includes(sortBy)
+      ? sortBy
+      : "createdAt";
+
+    const finalOrder =
+      order === "asc" ? "asc" : "desc";
+
+    const totalRecords =
+      await prisma.financialRecord.count({
+        where: filters
+      });
+
     const records =
       await prisma.financialRecord.findMany({
         where: filters,
+        skip,
+        take: limitNumber,
         orderBy: {
-          createdAt: "desc"
+          [finalSortBy]: finalOrder
         }
       });
 
@@ -123,7 +152,17 @@ export const getAllRecords = async (req, res, next) => {
       new ApiResponse(
         200,
         "Records fetched successfully",
-        records
+        {
+          page: pageNumber,
+          limit: limitNumber,
+          totalRecords,
+          totalPages: Math.ceil(
+            totalRecords / limitNumber
+          ),
+          sortBy: finalSortBy,
+          order: finalOrder,
+          records
+        }
       )
     );
   } catch (error) {
@@ -132,6 +171,8 @@ export const getAllRecords = async (req, res, next) => {
     );
   }
 };
+
+
 
 export const getRecordById = async (req, res, next) => {
   try {

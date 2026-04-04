@@ -25,6 +25,8 @@ router.put("/:id",authenticateUser,authorizeRoles("admin"),updateRecordValidator
 
 router.delete("/delete/:id",authenticateUser,authorizeRoles("admin"),deleteRecord);
 
+
+
 // viewer and analyst routes
 router.get("/all",authenticateUser,authorizeRoles("viewer", "analyst", "admin"),getAllRecords);
 

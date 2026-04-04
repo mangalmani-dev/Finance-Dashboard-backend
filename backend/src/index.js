@@ -5,6 +5,7 @@ import dotenv from "dotenv"
 import authRoutes from "./routes/auth.routes.js";
 import recordRoutes from "./routes/record.routes.js"
 import dashboardRoutes from "./routes/dashboard.routes.js"  
+import adminRoutes from "./routes/admin.routes.js";
 
 dotenv.config({
     path: "./.env"
@@ -15,14 +16,16 @@ const port = process.env.PORT || 4000;
 
 //middleware to parse JSON
 app.use(express.json());
-
-
+// middleware to parse cookies
 app.use(cookieParser());
 
 
+
+// api endpoints
 app.use("/api/v1/auth",authRoutes)
 app.use("/api/v1/record",recordRoutes)
 app.use("/api/v1/dashboard",dashboardRoutes)
+app.use("/api/v1/admin", adminRoutes);
 
 
 // start the server
