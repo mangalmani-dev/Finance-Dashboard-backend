@@ -191,8 +191,8 @@ You can use `.env.example` as reference.
 ### Admin
 
 ```text
-Email: admin@gmail.com
-Password: Admin@123
+email: admin@gmail.com
+password: Admin@123
 ```
 
 ---
