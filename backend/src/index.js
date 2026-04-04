@@ -28,6 +28,16 @@ app.use("/api/v1/dashboard",dashboardRoutes)
 app.use("/api/v1/admin", adminRoutes);
 
 
+//  test api endpoint
+app.get("/", (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "Welcome to Finance Dashboard Backend API",
+    status: "Server is running successfully"
+  });
+});
+
+
 // start the server
 app.listen(port,()=>{
     console.log(`Server is running on port ${port}`);
