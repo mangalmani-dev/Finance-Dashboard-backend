@@ -4,18 +4,88 @@
 
 This project is a backend system developed as part of a practical assessment to demonstrate backend development skills including **API design, authentication, authorization, validation, business logic implementation, and finance data analytics**.
 
-The system supports secure user authentication, role-based access control, CRUD operations for financial records, dashboard summaries, and advanced querying features like **filtering, pagination, and sorting**.
+The system supports secure user authentication, role-based access control, CRUD operations for financial records, dashboard summaries, and advanced querying features such as **filtering, pagination, sorting, and analytics**.
+
+---
+
+## Live Deployment
+
+### Base URL
+
+`https://finance-dashboard-backend-1-qvzs.onrender.com`
+
+### Health Check Routes
+
+* Root Welcome Route
+  `GET /`
+
+* API Welcome Route
+  `GET /api/v1`
+
+* Server Health Route
+  `GET /api/v1/health`
+
+---
+
+## Health Check Responses
+
+### Root Route
+
+`GET /`
+
+```json id="l9x2p5"
+{
+  "statusCode": 200,
+  "message": "Finance Dashboard Backend API is live",
+  "data": null,
+  "success": true
+}
+```
+
+---
+
+### API Welcome Route
+
+`GET /api/v1`
+
+```json id="k5m7r3"
+{
+  "statusCode": 200,
+  "message": "Welcome to Finance Dashboard Backend API",
+  "data": null,
+  "success": true
+}
+```
+
+---
+
+### Server Health Route
+
+`GET /api/v1/health`
+
+```json id="d2n6q9"
+{
+  "statusCode": 200,
+  "message": "Server is healthy",
+  "data": {
+    "status": "Running"
+  },
+  "success": true
+}
+```
 
 ---
 
 ## Tech Stack
 
-* **Node.js**
-* **Express.js**
-* **Prisma ORM**
-* **PostgreSQL**
-* **JWT Authentication**
-* **Express Validator**
+* Node.js
+* Express.js
+* Prisma ORM
+* PostgreSQL
+* JWT Authentication
+* Express Validator
+* Render Deployment
+* Neon PostgreSQL
 
 ---
 
@@ -61,6 +131,12 @@ The system supports secure user authentication, role-based access control, CRUD 
 
 * Update user role
 
+### System Health & Monitoring
+
+* Root welcome route
+* API health check route
+* Server status endpoint
+
 ---
 
 ## API Endpoints
@@ -90,6 +166,12 @@ The system supports secure user authentication, role-based access control, CRUD 
 
 * `PATCH /api/v1/admin/users/:id/role`
 
+### Health & Status Routes
+
+* `GET /`
+* `GET /api/v1`
+* `GET /api/v1/health`
+
 ---
 
 ## Query Parameters Supported
@@ -113,7 +195,7 @@ Supported query params:
 
 ## Project Structure
 
-```text
+```text id="r2m4k8"
 src/
 ├── config/
 │   └── prisma.js
@@ -133,7 +215,8 @@ src/
 │   ├── auth.routes.js
 │   ├── record.routes.js
 │   ├── dashboard.routes.js
-│   └── admin.routes.js
+│   ├── admin.routes.js
+│   └── health.routes.js
 │
 ├── validators/
 │   ├── auth.validator.js
@@ -154,19 +237,19 @@ src/
 
 ### Install dependencies
 
-```bash
+```bash id="n6q8w1"
 npm install
 ```
 
 ### Setup database
 
-```bash
+```bash id="5syzqh"
 npx prisma migrate dev
 ```
 
 ### Run server
 
-```bash
+```bash id="ufqkea"
 npm run dev
 ```
 
@@ -176,13 +259,11 @@ npm run dev
 
 Create a `.env` file in the root directory:
 
-```env
+```env id="x5p9v3"
 PORT=4000
 DATABASE_URL=your_postgresql_database_url
 JWT_SECRET=your_secret_key
 ```
-
-You can use `.env.example` as reference.
 
 ---
 
@@ -190,10 +271,18 @@ You can use `.env.example` as reference.
 
 ### Admin
 
-```text
+```text id="c8j2m6"
 email: admin@gmail.com
 password: Admin@123
 ```
+
+---
+
+## Postman Collection
+
+The complete API collection is included in the `postman` folder.
+
+Import the Postman collection to test all APIs.
 
 ---
 
@@ -225,3 +314,4 @@ This project demonstrates:
 * production-style query handling
 * pagination, filtering, and sorting support
 * admin role management APIs
+* live deployment with health monitoring
