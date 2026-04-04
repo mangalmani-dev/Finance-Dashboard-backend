@@ -1,3 +1,5 @@
+// A CUSTOM RESPONSE CLASS TO STANDARDIZE SUCCESS RESPONSES THROUGHOUT THE APPLICATION
+
 class ApiResponse {
   constructor(
     statusCode,

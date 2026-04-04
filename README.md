@@ -33,7 +33,7 @@ The system supports secure user authentication, role-based access control, CRUD 
 
 `GET /`
 
-```json id="l9x2p5"
+```
 {
   "statusCode": 200,
   "message": "Finance Dashboard Backend API is live",
@@ -48,7 +48,7 @@ The system supports secure user authentication, role-based access control, CRUD 
 
 `GET /api/v1`
 
-```json id="k5m7r3"
+```
 {
   "statusCode": 200,
   "message": "Welcome to Finance Dashboard Backend API",
@@ -63,7 +63,7 @@ The system supports secure user authentication, role-based access control, CRUD 
 
 `GET /api/v1/health`
 
-```json id="d2n6q9"
+```
 {
   "statusCode": 200,
   "message": "Server is healthy",
@@ -195,7 +195,7 @@ Supported query params:
 
 ## Project Structure
 
-```text id="r2m4k8"
+```
 src/
 ├── config/
 │   └── prisma.js
@@ -237,19 +237,19 @@ src/
 
 ### Install dependencies
 
-```bash id="n6q8w1"
+```
 npm install
 ```
 
 ### Setup database
 
-```bash id="5syzqh"
+```
 npx prisma migrate dev
 ```
 
 ### Run server
 
-```bash id="ufqkea"
+```
 npm run dev
 ```
 
@@ -259,7 +259,7 @@ npm run dev
 
 Create a `.env` file in the root directory:
 
-```env id="x5p9v3"
+```
 PORT=4000
 DATABASE_URL=your_postgresql_database_url
 JWT_SECRET=your_secret_key
@@ -271,7 +271,7 @@ JWT_SECRET=your_secret_key
 
 ### Admin
 
-```text id="c8j2m6"
+```
 email: admin@gmail.com
 password: Admin@123
 ```

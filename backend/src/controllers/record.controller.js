@@ -2,15 +2,11 @@ import prisma from "../config/prisma.js";
 import ApiError from "../utils/ApiError.js";
 import ApiResponse from "../utils/ApiResponse.js";
 
+
+// FOR CREATING A SINGLE RECORD
 export const createRecord = async (req, res, next) => {
   try {
-    const {
-      amount,
-      type,
-      category,
-      date,
-      notes
-    } = req.body;
+    const { amount, type, category, date, notes } = req.body;
 
     const record = await prisma.financialRecord.create({
       data: {
@@ -19,63 +15,51 @@ export const createRecord = async (req, res, next) => {
         category,
         date: new Date(date),
         notes,
-        createdBy: req.user.id
-      }
+        createdBy: req.user.id,
+      },
     });
 
     return res.status(201).json(
-      new ApiResponse(
-        201,
-        "Record created successfully",
-        record
-      )
+      new ApiResponse(201, "Record created successfully", record)
     );
   } catch (error) {
-    return next(
-      new ApiError(500, error.message)
-    );
+    return next(new ApiError(500, error.message));
   }
 };
 
-// create a multiple records at once
-
+// FOR CREATING MULTIPLE RECORDS IN BULK
 export const createMultipleRecords = async (req, res, next) => {
   try {
     const records = req.body;
 
     if (!Array.isArray(records) || records.length === 0) {
-      return next(
-        new ApiError(400, "Please send an array of records")
-      );
+      return next(new ApiError(400, "Please send an array of records"));
     }
 
-    const formattedRecords = records.map((record) => ({
-      amount: record.amount,
-      type: record.type.toUpperCase(),
-      category: record.category,
-      date: new Date(record.date),
-      notes: record.notes,
-      createdBy: req.user.id
-    }));
-
-    const createdRecords = await prisma.financialRecord.createMany({
-      data: formattedRecords
-    });
-
-    return res.status(201).json(
-      new ApiResponse(
-        201,
-        "Multiple records created successfully",
-        createdRecords
+    const createdRecords = await Promise.all(
+      records.map(({ amount, type, category, date, notes }) =>
+        prisma.financialRecord.create({
+          data: {
+            amount,
+            type: type.toUpperCase(),
+            category,
+            date: new Date(date),
+            notes,
+            createdBy: req.user.id,
+          },
+        })
       )
     );
-  } catch (error) {
-    return next(
-      new ApiError(500, error.message)
+
+    return res.status(201).json(
+      new ApiResponse(201, "Multiple records created successfully", createdRecords)
     );
+  } catch (error) {
+    return next(new ApiError(500, error.message));
   }
 };
 
+// FOR GETTING ALL RECORDS WITH FILTERING, PAGINATION, AND SORTING
 
 export const getAllRecords = async (req, res, next) => {
   try {
@@ -173,7 +157,7 @@ export const getAllRecords = async (req, res, next) => {
 };
 
 
-
+// FOR GETTING A SINGLE RECORD BY ID
 export const getRecordById = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -206,6 +190,7 @@ export const getRecordById = async (req, res, next) => {
 };
 
 
+// FOR UPDATING A RECORD BY ID
 
 export const updateRecord = async (req, res, next) => {
   try {
@@ -232,6 +217,8 @@ export const updateRecord = async (req, res, next) => {
     );
   }
 };
+
+// FOR DELETING A RECORD BY ID (SOFT DELETE)
 
 export const deleteRecord = async (req, res, next) => {
   try {

@@ -1,6 +1,8 @@
 import jwt from "jsonwebtoken";
 import ApiError from "../utils/ApiError.js";
 
+// MIDDLEWARE TO AUTHENTICATE USER USING JWT TOKEN FROM HEADER OR COOKIE
+
 const authenticateUser = (req, res, next) => {
   try {
     let token = null;

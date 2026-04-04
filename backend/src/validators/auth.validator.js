@@ -1,6 +1,6 @@
 import { body } from "express-validator";
 
-// Validation rules for user registration and login
+// VALIDATION RULES FOR USER REGISTRATION AND LOGIN REQUESTS
 
 export const registerValidator = [
   body("email")

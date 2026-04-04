@@ -1,3 +1,5 @@
+// INITIALIZE PRISMA CLIENT WITH POSTGRESQL ADAPTER FOR DATABASE CONNECTION AND OPERATIONS
+
 import { PrismaClient } from "../generated/prisma/client.js";
 import dotenv from "dotenv";
 import { PrismaPg } from "@prisma/adapter-pg";

@@ -5,7 +5,7 @@ import ApiError from "../utils/ApiError.js";
 import ApiResponse from "../utils/ApiResponse.js";
 
 
-
+ // FOR USER REGISTRATION
 export const registerUser = async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
@@ -93,6 +93,9 @@ export const registerUser = async (req, res, next) => {
   }
 };
 
+
+// FOR USER LOGIN
+
 export const loginUser = async (req, res, next) => {
   try {
     const { email, password } = req.body;
@@ -151,7 +154,9 @@ export const loginUser = async (req, res, next) => {
     );
   }
 };
-// logout
+
+
+// FOR USER LOGOUT
 
 export const logoutUser = async (req, res, next) => {
   try {

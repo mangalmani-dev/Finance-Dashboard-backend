@@ -1,8 +1,38 @@
 import { body } from "express-validator";
 import { AVAILABLE_RECORD_TYPES } from "../constants/roles.js";
 
-export const createRecordValidator =  [
-  body().isArray({ min: 1 }).withMessage("Body must be an array"),
+// VALIDATION RULES FOR CREATING AND UPDATING FINANCIAL RECORDS
+
+// FOR CREATING A SINGLE RECORD
+export const createRecordValidator = [
+  body("amount")
+    .notEmpty()
+    .isNumeric()
+    .withMessage("Amount must be a number"),
+
+  body("type")
+    .isIn(AVAILABLE_RECORD_TYPES)
+    .withMessage("Invalid record type"),
+
+  body("category")
+    .trim()
+    .notEmpty()
+    .withMessage("Category is required"),
+
+  body("date")
+    .isISO8601()
+    .withMessage("Valid date is required"),
+
+  body("notes")
+    .optional()
+    .isString(),
+];
+
+// FOR CREATING MULTIPLE RECORDS IN BULK
+export const createMultipleRecordValidator = [
+  body()
+    .isArray({ min: 1 })
+    .withMessage("Body must be a non-empty array"),
 
   body("*.amount")
     .notEmpty()
@@ -24,11 +54,8 @@ export const createRecordValidator =  [
 
   body("*.notes")
     .optional()
-    .isString()
+    .isString(),
 ];
-
-
-
 
 export const updateRecordValidator = [
   body("amount")

@@ -1,5 +1,8 @@
 import ApiError from "../utils/ApiError.js";
 
+
+// FOR AUTHORIZING USER BASED ON ROLE
+
 const authorizeRoles = (...allowedRoles) => {
   return (req, res, next) => {
     try {

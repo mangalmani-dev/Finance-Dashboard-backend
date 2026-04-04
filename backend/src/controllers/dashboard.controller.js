@@ -2,6 +2,8 @@ import prisma from "../config/prisma.js";
 import ApiError from "../utils/ApiError.js";
 import ApiResponse from "../utils/ApiResponse.js";
 
+// FOR DASHBOARD SUMMARY
+
 export const getDashboardSummary = async (
   req,
   res,
@@ -57,6 +59,8 @@ export const getDashboardSummary = async (
   }
 };
 
+// FOR CATEGORY SUMMARY
+
 export const getCategorySummary = async (
   req,
   res,
@@ -87,6 +91,8 @@ export const getCategorySummary = async (
     );
   }
 };
+
+// FOR RECENT ACTIVITY
 
 export const getRecentActivity = async (
   req,

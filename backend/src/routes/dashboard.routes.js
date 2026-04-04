@@ -10,6 +10,8 @@ import authorizeRoles from "../middlewares/role.middleware.js";
 
 const router = express.Router();
 
+// DASHBOARD ROUTES FOR SUMMARY, CATEGORY SUMMARY, AND RECENT ACTIVITY
+
 router.get("/summary",authenticateUser,authorizeRoles("analyst", "admin"),getDashboardSummary);
 
 router.get("/category-summary",authenticateUser,authorizeRoles("analyst", "admin"),getCategorySummary);

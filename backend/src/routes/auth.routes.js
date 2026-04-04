@@ -5,7 +5,7 @@ import validate from "../middlewares/validation.middleware.js";
 
 const router = express.Router();
 
-// all api is working fine
+// ALL AUTHENTICATION ROUTES FOR USER REGISTRATION, LOGIN, AND LOGOUT
 
 router.post("/register",registerValidator,validate,registerUser);
 

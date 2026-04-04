@@ -1,5 +1,7 @@
 import { body } from "express-validator";
 
+// VALIDATION RULES FOR UPDATING USER ROLE
+
 export const updateUserRoleValidator = [
   body("role")
     .notEmpty()

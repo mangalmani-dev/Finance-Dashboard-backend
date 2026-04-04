@@ -13,23 +13,22 @@ dotenv.config({
     path: "./.env"
 })
 
-// set the port
+// SET PORT 
 const port = process.env.PORT || 4000;
 
-//middleware to parse JSON
+// MIDDLEWARES TO PARSE JSON AND COOKIES
 app.use(express.json());
-// middleware to parse cookies
 app.use(cookieParser());
 
-// for check
 
+// FOR CHECKING
 app.get("/", (req, res) => {
   return res.status(200).json(
     new ApiResponse(200, "Finance Dashboard Backend API is live")
   );
 });
 
-// api endpoints
+// API ENDPOINTS
 app.use("/api/v1", healthRoutes);
 app.use("/api/v1/auth",authRoutes)
 app.use("/api/v1/record",recordRoutes)
@@ -38,7 +37,7 @@ app.use("/api/v1/admin", adminRoutes);
 
 
 
-// start the server
+// SET THE APP TO LISTEN ON THE SPECIFIED PORT
 app.listen(port,()=>{
     console.log(`Server is running on port ${port}`);
 })

@@ -10,16 +10,18 @@ import {
 
 import authenticateUser from "../middlewares/auth.middleware.js";
 import authorizeRoles from "../middlewares/role.middleware.js";
-import { createRecordValidator, updateRecordValidator } from "../validators/record.validator.js";
+import { createMultipleRecordValidator, createRecordValidator, updateRecordValidator } from "../validators/record.validator.js";
 import validate from "../middlewares/validation.middleware.js";
 
 const router = express.Router();
+
+// ALL RECORD MANAGEMENT ROUTES FOR ADMIN, ANALYST, AND VIEWER ROLES 
 
 // admin routes only
 
 router.post("/create",authenticateUser,  authorizeRoles("admin"),createRecordValidator,  validate,createRecord);
 
-router.post("/create-multiple", authenticateUser,authorizeRoles("admin"),createRecordValidator, validate, createMultipleRecords);
+router.post("/create-multiple", authenticateUser,authorizeRoles("admin"),createMultipleRecordValidator, validate, createMultipleRecords);
 
 router.put("/:id",authenticateUser,authorizeRoles("admin"),updateRecordValidator,validate,updateRecord);
 

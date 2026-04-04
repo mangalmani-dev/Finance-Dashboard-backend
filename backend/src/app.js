@@ -1,6 +1,6 @@
 import express from 'express'
 
-// inialize express app
+// INITIALIZE EXPRESS APP
 
 const app = express()
 

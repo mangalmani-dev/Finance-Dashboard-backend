@@ -1,3 +1,6 @@
+
+// A CUSTOM ERROR CLASS TO STANDARDIZE ERROR RESPONSES THROUGHOUT THE APPLICATION
+
 class ApiError extends Error {
   constructor(
     statusCode = 500,

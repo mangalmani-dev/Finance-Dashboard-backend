@@ -7,6 +7,8 @@ import { updateUserRole } from "../controllers/admin.role.js";
 
 const router = express.Router();
 
+// ADMIN ROUTES FOR MANAGING USER ROLES
+
 router.patch(
   "/users/:id/role",
   authenticateUser,
